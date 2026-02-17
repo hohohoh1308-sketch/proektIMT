@@ -1,627 +1,958 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <title>SCROOGEBUCKS — всё в одном</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Базовые стили (имитируют оригинальный style.css) */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-        }
-        body {
-            background-color: #f5f5f5;
-            color: #1e3932;
-        }
-        .header {
-            background-color: #006241;
-            color: white;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            position: relative;
-        }
-        .logo {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-        .nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-        .nav ul li {
-            position: relative;
-        }
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 12px;
-            display: block;
-            transition: background 0.2s;
-        }
-        .nav a:hover {
-            background-color: #1e4a3b;
-            border-radius: 20px;
-        }
-        /* выпадающие меню */
-        .nav ul ul {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #006241;
-            min-width: 200px;
-            border-radius: 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1000;
-            flex-direction: column;
-            padding: 8px 0;
-        }
-        .nav ul li:hover > ul {
-            display: flex;
-        }
-        .nav ul ul li {
-            width: 100%;
-        }
-        .nav ul ul a {
-            padding: 10px 16px;
-        }
-        .nav ul ul ul {
-            left: 100%;
-            top: 0;
-        }
-        /* контентные блоки */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .background {
-            background-color: #1e3932;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 300;
-            border-radius: 16px;
-            margin: 20px 0;
-        }
-        .background1, .background2 {
-            background-color: #d4e9e2;
-            border-radius: 24px;
-            padding: 30px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        .background2 {
-            background-color: #f2e9d0;
-        }
-        .background10 {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            background: white;
-            padding: 30px;
-            border-radius: 40px;
-            margin: 20px 0;
-        }
-        .background10text {
-            text-align: center;
-            font-size: 2.2rem;
-            color: #006241;
-            margin: 40px 0 10px;
-        }
-        .menucup1, .menucup2, .menucup3, .menucup4 {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 50%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .menucup1:hover, .menucup2:hover, .menucup3:hover, .menucup4:hover {
-            transform: scale(1.05);
-        }
-        .gift1, .gift2 {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            background: #f7f2e9;
-            padding: 30px;
-            border-radius: 40px;
-            margin: 20px 0;
-        }
-        .gift2 {
-            flex-direction: column;
-            text-align: center;
-        }
-        .promstart {
-            text-align: center;
-            font-size: 3rem;
-            color: #b78a4b;
-            margin: 40px 0;
-        }
-        .background01, .background02, .background045, .background046, .background047, .background048 {
-            background: #fff;
-            border-radius: 30px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            background: white;
-        }
-        th, td {
-            padding: 12px 20px;
-            border: 1px solid #006241;
-        }
-        .podval, .podvalmenu, .podval2 {
-            background-color: #1e3932;
-            color: #ddd;
-            padding: 40px 20px 20px;
-            margin-top: 50px;
-        }
-        .footnuv1, .footnuv2, .footnuv3 {
-            list-style: none;
-            display: inline-block;
-            vertical-align: top;
-            margin: 0 40px 20px 0;
-        }
-        .footnuv1 li, .footnuv2 li, .footnuv3 li {
-            margin: 8px 0;
-        }
-        hr {
-            border-color: #3b5e4b;
-            margin: 30px 0;
-        }
-        /* Скрытие страниц по умолчанию, показывается только активная */
-        .page {
-            display: none;
-        }
-        #home {
-            display: block; /* home видна при загрузке */
-        }
-    </style>
+    <title>SCROOGEBUCKS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, instal-scale">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <a href="#" class="logo" onclick="showPage('home')">Scroogebucks Coffee Company</a>
-        <div class="toggleBtn"></div>
-        <nav class="nav">
-            <ul>
-                <li><a href="javascript:void(0)" onclick="showPage('home')">ГЛАВНАЯ</a></li>
-                <li><a href="javascript:void(0)" onclick="showPage('promo')">АКЦИИ</a></li>
-                <li>
-                    <a href="javascript:void(0)">МЕНЮ <i class="fas fa-caret-down"></i></a>
-                    <ul>
-                        <li><a href="javascript:void(0)" onclick="showPage('food')">Питание</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('coffeehouse')">Кофе дома</a></li>
-                        <li>
-                            <a href="javascript:void(0)">Напитки <i class="fas fa-caret-down"></i></a>
-                            <ul>
-                                <li><a href="javascript:void(0)" onclick="showPage('hotcoffee')">Горячий кофе</a></li>
-                                <li><a href="javascript:void(0)" onclick="showPage('coldcoffee')">Холодный кофе</a></li>
-                                <li><a href="javascript:void(0)" onclick="showPage('proteincup')">Протеиновые напитки</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="javascript:void(0)" onclick="showPage('giftcards')">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+
+<!-- ========== Coffeehouse.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Starbucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Меню/Coffee house Starbucks®</p>
+    </div>
+</main>
+<h2 class="background10text">Blonde Roast</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="coffepak.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="blond1.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="blond2.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="blond3.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Medium Roast</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="Medium1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="Medium2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="Medium3.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Dark Roast</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="Dark1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="Dark2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="Dark3.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="Dark4.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Iced Coffee</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="ice1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="icedcof.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="ice2.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
             </ul>
-        </nav>
-    </header>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
 
-    <!-- ========== СТРАНИЦА ГЛАВНАЯ (index.html) ========== -->
-    <div id="home" class="page">
-        <main>
-            <div class="background">
-                <p style="color: white;">Отличный день для кофе</p>
-            </div>
-            <div class="background1">
-                <h2>Карамельный белок здесь</h2>
-                <p style="line-height:2;">Усиливайте с помощью нового карамельного протеинового латте или матча с молоком с повышенным содержанием белка — до 31 г белка. Добавьте Caramel Protein Cold Foam для дополнительных 17 г белка. Горячие или безсахарные варианты.</p>
-                <img class="displayed1" src="karam.jpg" style="max-width:100%; border-radius:30px;">
-            </div>
-            <div class="background2">
-                <h2>Привет, фисташка</h2>
-                <p style="line-height:2;">Любимый вкус возвращается с вкусным новым фисташко-кортадо, фисташковым кремом холодным заваром и любимым фисташковым латте. Солёно-сладкий комфорт в любое время суток.</p>
-                <img class="displayed2" src="coffe.jpg" style="max-width:100%; border-radius:30px;">
-            </div>
-            <div class="background1">
-                <h2>Умные закуски с Кардашьян</h2>
-                <p style="line-height:2;">Подживите свой день и закажите секретный протеиновый напиток Хлои, только в приложении. Сочетайте его с пакетом попкорна Khloud, который уже доступен в Starbucks.</p>
-                <img class="displayed3" src="woman.webp" style="max-width:100%; border-radius:30px;">
-            </div>
-            <div class="background2">
-                <h2>Но сначала — бесплатный кофе</h2>
-                <p style="line-height:2;">Бесплатный ручной напиток при покупке полностью доступен вам в первую неделю членства в Starbucks Rewards.*®</p>
-                <img class="displayed4" src="cup.webp" style="max-width:100%; border-radius:30px;">
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА АКЦИИ (promo.html) ========== -->
-    <div id="promo" class="page">
-        <main>
-            <div class="background">
-                <p style="color: white;">Акции Starbucks®</p>
-            </div>
-            <h2 class="promstart">Сегодня отличный день<br>для<br>бесплатного кофе</h2>
-            <div class="background01">
-                <h2>ВТОРОЙ НАПИТОК В ПОДАРОК!</h2>
-                <p>Дорогие гости!</p>
-                <p>У нас отличная новость! Теперь вы можете получить второй напиток абсолютно бесплатно!</p>
-                <p>Просто выберите два напитка из акционного ассортимента — за второй мы с радостью поставим нулевую цену.</p>
-                <h4>Условия акции:</h4>
-                <p>Акция действует на напитки, помеченные специальным стикером.</p>
-                <p>Предложение ограничено по времени.</p>
-                <p>Акция не суммируется с другими скидками и предложениями.</p>
-                <p class="darite">Дарите вкус себе и другу! Ждем в гости!</p>
-            </div>
-            <div class="background02">
-                <img class="promocof1" src="promcoffe1.png" style="max-width:100%;">
-            </div>
-            <div class="background045">
-                <div class="background046">
-                    <h2 style="color: rgb(134, 87, 16);">ДАРИМ ВКУСНУЮ ВЫГОДУ!</h2>
-                    <p>Друзья, стало ещё выгоднее собирать ваш любимый обед у нас! Теперь, формируя заказ от 500 рублей, вы получаете любое пирожное из витрины в подарок*.</p>
-                    <p>Хочется большего? Тогда вот ещё одно спецпредложение: Оформите заказ от 800 рублей и активируйте скидку 15% на всю вашу покупку.</p>
-                    <h4 style="color: rgb(134, 87, 16);">Почему это здорово?</h4>
-                    <ul type="disc">
-                        <li>Вы пробуете новое (пирожное в подарок — отличный повод).</li>
-                        <li>Вы экономите на большом заказе (15% — это ощутимо).</li>
-                        <li>Вы получаете больше удовольствия за те же деньги!</li>
-                    </ul>
-                    <h4 style="color: rgb(134, 87, 16);">Как получить подарок или скидку?</h4>
-                    <p>Просто сообщите кассиру, что хотите участвовать в акции, когда ваш заказ достигнет нужной суммы. Или покажите этот пост.</p>
-                    <p>Ждём вас за выгодными покупками!</p>
-                </div>
-                <div class="background047">
-                    <img class="promocof1" src="podarok.png" style="max-width:100%;">
-                </div>
-            </div>
-            <h2 class="Q">Вопросы?</h2>
-            <p class="q">Мы хотим помочь чем сможем. Вы можете обратиться к своему бариста в любое время, или мы уже ответили на самые часто задаваемые вопросы.</p>
-            <div class="background048">
-                <p>В магазинах-участниках. Действуют ограничения.</p>
-                <p>1Исключает налоги и чаевые. В магазинах-участниках. Действуют некоторые ограничения. Рейсы, приобретённые ближе к вылету, не могут получать двойные звёзды. Звёзды и мили нельзя зарабатывать за покупки алкоголя, карт Starbucks и пополнения карт Starbucks. Для подробностей посетите.</p>
-                <p>2Для участия в предложении необходимо связывать аккаунты программ лояльности... (полный текст сохранён)</p>
-                <h4>Получение звёзд</h4>
-                <p>Звёзды нельзя зарабатывать за покупки алкоголя, карт Starbucks или пополнения карт Starbucks.</p>
-                <p>Зарабатывайте 1 звезду за каждый потраченный $1 при сканировании штрих-кода участника в приложении...</p>
-                <h4>Преимущества</h4>
-                <p>Бесплатные пополнения доступны только во время одного и того же визита в магазин...</p>
-                <hr>
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА МЕНЮ (menu.html) ========== -->
-    <div id="menu" class="page">
-        <main>
-            <div class="background"><p>Меню Starbucks®</p></div>
-            <h2 class="background10text">Любимые фанатами</h2>
-            <div class="background10">
-                <img class="menucup1" src="pinkcup.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Напитки</h2>
-            <div class="background10">
-                <img class="menucup1" src="proteincup.jfif" style="border-radius:50%;">
-                <a href="javascript:void(0)" onclick="showPage('hotcoffee')"><img class="menucup2" src="coff.jfif" style="border-radius:50%;"></a>
-                <img class="menucup3" src="coldcoff.jfif" style="border-radius:50%;">
-                <a href="javascript:void(0)" onclick="showPage('hotcoffee')"><img class="menucup4" src="hotchoko.jfif" style="border-radius:50%;"></a>
-            </div>
-            <h2 class="background10text">Питание</h2>
-            <div class="background10">
-                <a href="javascript:void(0)" onclick="showPage('food')">
-                    <img class="menucup1" src="sand.jfif" style="border-radius:50%;">
-                    <img class="menucup2" src="white.jfif" style="border-radius:50%;">
-                    <img class="menucup3" src="cake.jfif" style="border-radius:50%;">
-                    <img class="menucup4" src="prot.jfif" style="border-radius:50%;">
-                </a>
-            </div>
-            <h2 class="background10text">Кофе дома</h2>
-            <div class="background10">
-                <a href="javascript:void(0)" onclick="showPage('coffeehouse')">
-                    <img class="menucup1" src="coffepak.jfif" style="border-radius:50%;">
-                    <img class="menucup2" src="icedcof.jfif" style="border-radius:50%;">
-                    <img class="menucup3" src="pak.jfif" style="border-radius:50%;">
-                </a>
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА ПИТАНИЕ (food.html) ========== -->
-    <div id="food" class="page">
-        <main>
-            <div class="background"><p>Меню/Nutrition Starbucks®</p></div>
-            <h2 class="background10text">Завтрак</h2>
-            <div class="background10">
-                <img class="menucup1" src="burger1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="sand.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="burger2.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Пекарня</h2>
-            <div class="background10">
-                <img class="menucup1" src="cake1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="cake.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="boob.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="white.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Угощения</h2>
-            <div class="background10">
-                <img class="menucup1" src="pop.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="chok.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="cake.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="pech.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Обед</h2>
-            <div class="background10">
-                <img class="menucup1" src="coffepak.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="icedcof.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="pak.jfif" style="border-radius:50%;">
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА КОФЕ ДОМА (Coffeehouse.html) ========== -->
-    <div id="coffeehouse" class="page">
-        <main>
-            <div class="background"><p>Меню/Coffee house Starbucks®</p></div>
-            <h2 class="background10text">Blonde Roast</h2>
-            <div class="background10">
-                <img class="menucup1" src="coffepak.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="blond1.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="blond2.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="blond3.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Medium Roast</h2>
-            <div class="background10">
-                <img class="menucup1" src="Medium1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="Medium2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="Medium3.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Dark Roast</h2>
-            <div class="background10">
-                <img class="menucup1" src="Dark1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="Dark2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="Dark3.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="Dark4.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Iced Coffee</h2>
-            <div class="background10">
-                <img class="menucup1" src="ice1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="icedcof.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="ice2.jfif" style="border-radius:50%;">
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА ГОРЯЧИЙ КОФЕ (hotcoffee.html) ========== -->
-    <div id="hotcoffee" class="page">
-        <main>
-            <div class="background"><p>Меню/Hot Coffee Starbucks®</p></div>
-            <h2 class="background10text">Brewed Coffee</h2>
-            <div class="background10">
-                <img class="menucup1" src="CaffeMisto1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="CaffeMisto2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="CaffeMisto3.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="CaffeMisto4.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Americano</h2>
-            <div class="background10">
-                <img class="menucup1" src="CaffeAmericano.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Latte</h2>
-            <div class="background10">
-                <img class="menucup1" src="CaffeLatte1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="CaffeLatte2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="CaffeLatte3.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="CaffeLatte4.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Cappuccino</h2>
-            <div class="background10">
-                <img class="menucup1" src="Cappuccino.jfif" style="border-radius:50%;">
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА ХОЛОДНЫЙ КОФЕ (ColdCoffee.html) ========== -->
-    <div id="coldcoffee" class="page">
-        <main>
-            <div class="background"><p>Меню/Cold Coffee Starbucks®</p></div>
-            <h2 class="background10text">Cold Brew</h2>
-            <div class="background10">
-                <img class="menucup1" src="ColdBrew1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="ColdBrew2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="ColdBrew3.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="ColdBrew4.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Nitro Cold Brew</h2>
-            <div class="background10">
-                <img class="menucup1" src="NitroColdBrew1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="NitroColdBrew2.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Iced Coffee</h2>
-            <div class="background10">
-                <img class="menucup1" src="IcedCoffee.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Iced Shaken Espresso</h2>
-            <div class="background10">
-                <img class="menucup1" src="IcedShakenEspresso1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="IcedShakenEspresso2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="IcedShakenEspresso3.jfif" style="border-radius:50%;">
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА ПРОТЕИНОВЫЕ НАПИТКИ (proteincup.html) ========== -->
-    <div id="proteincup" class="page">
-        <main>
-            <div class="background"><p>Меню/Protein Beverages Starbucks®</p></div>
-            <h2 class="background10text">Латте с высоким содержанием белка</h2>
-            <div class="background10">
-                <img class="menucup1" src="proteincup.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="IcedMatchaTeaLattewProtein1.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="IcedMatchaTeaLattewProtein2.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="IcedMatchaTeaLattewProtein3.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Без добавленного сахара</h2>
-            <div class="background10">
-                <img class="menucup1" src="IcedMatchaTeaLattewProtein1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="IcedMatchaTeaLattewProtein3.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="proteincup.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Iced Protein Lattes</h2>
-            <div class="background10">
-                <img class="menucup1" src="IcedCoffee.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="IcedMatchaTeaLattewProtein1.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="SBX20250821_ProteinMatchaTeaLatte.jfif" style="border-radius:50%;">
-                <img class="menucup4" src="proteincup.jfif" style="border-radius:50%;">
-            </div>
-            <h2 class="background10text">Iced Shaken Espresso</h2>
-            <div class="background10">
-                <img class="menucup1" src="IcedShakenEspresso1.jfif" style="border-radius:50%;">
-                <img class="menucup2" src="IcedShakenEspresso2.jfif" style="border-radius:50%;">
-                <img class="menucup3" src="IcedShakenEspresso3.jfif" style="border-radius:50%;">
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== СТРАНИЦА ПОДАРОЧНЫЕ КАРТЫ (giftcards.html) ========== -->
-    <div id="giftcards" class="page">
-        <main>
-            <div class="background"><p>Подарочные карты Starbucks®</p></div>
-            <h2 class="promstart">Подарочные карты</h2>
-            <div class="gift1">
-                <img class="menucup11" src="giftc1.png" style="border-radius:8%; width:200px;">
-                <img class="menucup22" src="giftc6.jfif" style="border-radius:8%; width:200px;">
-                <img class="menucup33" src="giftc3.png" style="border-radius:8%; width:200px;">
-                <img class="menucup44" src="giftc4.jfif" style="border-radius:8%; width:200px;">
-            </div>
-            <div class="gift2">
-                <h2>Получили подарочную карту?</h2>
-                <p>Электронная подарочная карта Starbucks (также известная как «eGift») — это подарочная карта Starbucks, которая покупается и отправляется в цифровом виде.</p>
-            </div>
-            <h2 class="background10text">Новый год</h2>
-            <div class="gift1">
-                <img class="menucup11" src="NewYearFY261.jfif" style="border-radius:8%; width:200px;">
-                <img class="menucup22" src="NewYearFY262.png" style="border-radius:8%; width:200px;">
-            </div>
-            <h2 class="background10text">День рождения</h2>
-            <div class="gift1">
-                <img class="menucup11" src="HolidayBirthdayFY261.jfif" style="border-radius:8%; width:200px;">
-                <img class="menucup22" src="HolidayBirthdayFY262.png" style="border-radius:8%; width:200px;">
-                <img class="menucup33" src="HolidayBirthdayFY263.png" style="border-radius:8%; width:200px;">
-            </div>
-            <h2 class="background10text">Спасибо</h2>
-            <div class="gift1">
-                <img class="menucup11" src="ThankYouCheckerFY251.png" style="border-radius:8%; width:200px;">
-                <img class="menucup22" src="ThankYouCheckerFY252.jfif" style="border-radius:8%; width:200px;">
-                <img class="menucup33" src="ThankYouCheckerFY253.jpg" style="border-radius:8%; width:200px;">
-            </div>
-            <h2 class="background10text">Празднование</h2>
-            <div class="gift1">
-                <img class="menucup11" src="HolidayYayFY261.jfif" style="border-radius:8%; width:200px;">
-                <img class="menucup22" src="HolidayYayFY262.png" style="border-radius:8%; width:200px;">
-                <img class="menucup33" src="HolidayYayFY263.png" style="border-radius:8%; width:200px;">
-            </div>
-            <h2 class="background10text">Признательность</h2>
-            <div class="gift1">
-                <img class="menucup11" src="YoureAStarCoreFY251.png" style="border-radius:8%; width:200px;">
-                <img class="menucup22" src="YoureAStarCoreFY252.png" style="border-radius:8%; width:200px;">
-                <img class="menucup33" src="giftc3.png" style="border-radius:8%; width:200px;">
-            </div>
-            <h2 class="background10text">Лунный Новый год</h2>
-            <div class="gift1">
-                <img class="menucup11" src="giftc6.jfif" style="border-radius:8%; width:200px;">
-            </div>
-            <div class="gift2">
-                <table border="4" bgcolor="white" bordercolor="#006242">
-                    <caption>Стоимость популярных карт</caption>
-                    <tr><th rowspan="2"></th><th colspan="2">Новый год</th><th colspan="2">Празднование</th></tr>
-                    <tr><th>Стоимость</th><th>Количество</th><th>Стоимость</th><th>Количество</th></tr>
-                    <tr><td bgcolor="white"><font color="black">6 месяцев</font></td><td align="center">8 790</td><td align="center">35 порций</td><td align="center">6 990</td><td align="center">25 порций</td></tr>
-                    <tr><td bgcolor="white">1 год</td><td align="center">15 790</td><td align="center">75 порций</td><td align="center">12 990</td><td align="center">45 порций</td></tr>
-                </table>
-            </div>
-        </main>
-    </div>
-
-    <!-- ========== ОБЩИЙ ФУТЕР ========== -->
-    <footer class="podval">
-        <main>
-            <nav><!-- тут просто списки, сохраняем оригинальные классы -->
-                <ul class="footnuv1">
-                    <li><h3>Поддержка</h3></li>
-                    <li><a style="text-decoration: underline;">Чат участников</a></li>
-                    <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
-                    <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+<!-- ========== ColdCoffee.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Starbucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                <ul class="footnuv2">
-                    <li><h3>Контакты</h3></li>
-                    <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
-                    <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
-                </ul>
-                <ul class="footnuv3">
-                    <li><h3>Документы</h3></li>
-                    <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
-                    <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
-                    <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
-                </ul>
-            </nav>
-            <p></p><hr><p></p>
-            © 2026 Scroogebucks Coffee Company. Все права не защищены.
-        </main>
-    </footer>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Меню/Cold Coffee Starbucks®</p>
+    </div>
+</main>
+<h2 class="background10text">Cold Brew</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="ColdBrew1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="ColdBrew2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="ColdBrew3.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="ColdBrew4.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Nitro Cold Brew</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="NitroColdBrew1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="NitroColdBrew2.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Iced Coffee</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="IcedCoffee.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Iced Shaken Espresso</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="IcedShakenEspresso1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="IcedShakenEspresso2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="IcedShakenEspresso3.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
 
-    <script>
-        function showPage(pageId) {
-            // скрыть все страницы
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => p.style.display = 'none');
-            // показать выбранную
-            document.getElementById(pageId).style.display = 'block';
-            // можно также менять URL hash, но не обязательно
-        }
-        // при загрузке показываем главную (id=home уже видна благодаря CSS, но на всякий случай)
-        window.onload = function() {
-            // если в адресе есть #something, можно открыть соответствующую страницу
-            const hash = window.location.hash.substring(1);
-            if (hash && document.getElementById(hash)) {
-                showPage(hash);
-            } else {
-                showPage('home');
-            }
-        };
-        // обработка кликов по ссылкам с якорем (чтобы работала история)
-        // можно добавить изменение hash
-        function navigateWithHash(pageId) {
-            showPage(pageId);
-            window.location.hash = pageId;
-        }
-        // переназначаем onclick для ссылок (можно заменить в атрибутах, но оставим как есть)
-        // для удобства переопределим функцию, чтобы она также меняла hash
-        const originalShow = showPage;
-        window.showPage = function(id) {
-            originalShow(id);
-            window.location.hash = id;
-        };
-    </script>
-    <!-- иконки fontawesome не подключены, но они не критичны -->
+<!-- ========== food.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Starbucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Меню/Nutrition Starbucks®</p>
+    </div>
+</main>
+<h2 class="background10text">Завтрак</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="burger1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="sand.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="burger2.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Пекарня</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="cake1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="cake.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="boob.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="white.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Угощения</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="pop.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="chok.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="cake.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="pech.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Обед</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="coffepak.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="icedcof.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="pak.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
+<!-- ========== giftcards.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Scroogebucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="infopro.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Подарочные карты Starbucks®</p>
+    </div>
+</main>
+<h2 class="promstart" style="line-height:1.6;">Подарочные карты</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="giftc1.png" style="border-radius: 8%;">
+        <img class="menucup22" src="giftc6.jfif" style="border-radius: 8%;">
+        <img class="menucup33" src="giftc3.png" style="border-radius: 8%;">
+        <img class="menucup44" src="giftc4.jfif" style="border-radius: 8%;">
+    </div>
+</main>
+<main>
+    <div class="gift2">
+        <h2>Получили подарочную карту?</h2>
+        <p>Электронная подарочная карта Starbucks (также известная как «eGift») — это подарочная карта Starbucks, которая покупается и отправляется в цифровом виде.</p>
+    </div>
+</main>
+<h2 class="background10text">Новый год</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="NewYearFY261.jfif" style="border-radius: 8%;">
+        <img class="menucup22" src="NewYearFY262.png" style="border-radius: 8%;">
+    </div>
+</main>
+<h2 class="background10text">День рождения</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="HolidayBirthdayFY261.jfif" style="border-radius: 8%;">
+        <img class="menucup22" src="HolidayBirthdayFY262.png" style="border-radius: 8%;">
+        <img class="menucup33" src="HolidayBirthdayFY263.png" style="border-radius: 8%;">
+    </div>
+</main>
+<h2 class="background10text">Спасибо</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="ThankYouCheckerFY251.png" style="border-radius: 8%;">
+        <img class="menucup22" src="ThankYouCheckerFY252.jfif" style="border-radius: 8%;">
+        <img class="menucup33" src="ThankYouCheckerFY253.jpg" style="border-radius: 8%;">
+    </div>
+</main>
+<h2 class="background10text">Празднование</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="HolidayYayFY261.jfif" style="border-radius: 8%;">
+        <img class="menucup22" src="HolidayYayFY262.png" style="border-radius: 8%;">
+        <img class="menucup33" src="HolidayYayFY263.png" style="border-radius: 8%;">
+    </div>
+</main>
+<h2 class="background10text">Признательность</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="YoureAStarCoreFY251.png" style="border-radius: 8%;">
+        <img class="menucup22" src="YoureAStarCoreFY252.png" style="border-radius: 8%;">
+        <img class="menucup33" src="giftc3.png" style="border-radius: 8%;">
+    </div>
+</main>
+<h2 class="background10text">Лунный Новый год</h2>
+<main>
+    <div class="gift1">
+        <img class="menucup11" src="giftc6.jfif" style="border-radius: 8%;">
+    </div>
+</main>
+<main>
+    <div class="gift2">
+        <table border="4" bgcolor="white" bordercolor="#006242">
+            <caption>Стоимость популярных карт</caption>
+            <tr><th rowspan="2"></th><th colspan="2">Новый год</th><th colspan="2">Празднование</th></tr>
+            <tr><th>Стоимость</th><th>Количество</th><th>Стоимость</th><th>Количество</th></tr>
+            <tr><td bgcolor="white"><font color="black">6 месяцев</font></td><td align="center">8 790</td><td align="center">35 порций</td><td align="center">6 990</td><td align="center">25 порций</td></tr>
+            <tr><td bgcolor="white">1 год</td><td align="center">15 790</td><td align="center">75 порций</td><td align="center">12 990</td><td align="center">45 порций</td></tr>
+        </table>
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podval2">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
+<!-- ========== hotcoffee.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Starbucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Меню/Hot Coffee Starbucks®</p>
+    </div>
+</main>
+<h2 class="background10text">Brewed Coffee</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="CaffeMisto1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="CaffeMisto2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="CaffeMisto3.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="CaffeMisto4.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Americano</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="CaffeAmericano.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Latte</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="CaffeLatte1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="CaffeLatte2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="CaffeLatte3.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="CaffeLatte4.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Cappuccino</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="Cappuccino.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
+<!-- ========== index.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Scroogebucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Отличный день для кофе</p>
+    </div>
+</main>
+<main>
+    <div class="background1">
+        <h2>Карамельный белок здесь</h2>
+        <p style="line-height:2;">Усиливайте с помощью нового карамельного протеинового латте или матча с молоком с повышенным содержанием белка — до 31 г белка. Добавьте Caramel Protein Cold Foam для дополнительных 17 г белка. Горячие или безсахарные варианты.</p>
+        <img class="displayed1" src="karam.jpg">
+    </div>
+</main>
+<main>
+    <div class="background2">
+        <h2>Привет, фисташка</h2>
+        <p style="line-height:2;">Любимый вкус возвращается с вкусным новым фисташко-кортадо, фисташковым кремом холодным заваром и любимым фисташковым латте. Солёно-сладкий комфорт в любое время суток.</p>
+        <img class="displayed2" src="coffe.jpg">
+    </div>
+</main>
+<main>
+    <div class="background1">
+        <h2>Умные закуски с Кардашьян</h2>
+        <p style="line-height:2;">Подживите свой день и закажите секретный протеиновый напиток Хлои, только в приложении. Сочетайте его с пакетом попкорна Khloud, который уже доступен в Starbucks.</p>
+        <img class="displayed3" src="woman.webp">
+    </div>
+</main>
+<main>
+    <div class="background2">
+        <h2>Но сначала — бесплатный кофе</h2>
+        <p style="line-height:2;">Бесплатный ручной напиток при покупке полностью доступен вам в первую неделю членства в Starbucks Rewards.*®</p>
+        <img class="displayed4" src="cup.webp">
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
+<!-- ========== menu.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Scroogebucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Меню Starbucks®</p>
+    </div>
+</main>
+<h2 class="background10text">Любимые фанатами</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="pinkcup.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Напитки</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="proteincup.jfif" style="border-radius: 50%;">
+        <a href="hotcoffee.html"><img class="menucup2" src="coff.jfif" style="border-radius: 50%;"></a>
+        <img class="menucup3" src="coldcoff.jfif" style="border-radius: 50%;">
+        <a href="hotcoffee.html"><img class="menucup4" src="hotchoko.jfif" style="border-radius: 50%;"></a>
+    </div>
+</main>
+<h2 class="background10text">Питание</h2>
+<main>
+    <div class="background10">
+        <a href="food.html">
+            <img class="menucup1" src="sand.jfif" style="border-radius: 50%;">
+            <img class="menucup2" src="white.jfif" style="border-radius: 50%;">
+            <img class="menucup3" src="cake.jfif" style="border-radius: 50%;">
+            <img class="menucup4" src="prot.jfif" style="border-radius: 50%;">
+        </a>
+    </div>
+</main>
+<h2 class="background10text">Кофе дома</h2>
+<main>
+    <div class="background10">
+        <a href="Coffeehouse.html">
+            <img class="menucup1" src="coffepak.jfif" style="border-radius: 50%;">
+            <img class="menucup2" src="icedcof.jfif" style="border-radius: 50%;">
+            <img class="menucup3" src="pak.jfif" style="border-radius: 50%;">
+        </a>
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
+<!-- ========== proekt.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Scroogebucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="#">Кофе дома</a></li>
+                    <li>
+                        <a href="#">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="#">Горячий кофе</a></li>
+                            <li><a href="#">Холодный кофе</a></li>
+                            <li><a href="#">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="infopro.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Отличный день для кофе</p>
+    </div>
+</main>
+<main>
+    <div class="background1">
+        <h2>Карамельный белок здесь</h2>
+        <p style="line-height:2;">Зарядитесь с новым Caramel Protein Latte и Caramel Protein Matcha. Вручную приготовлено с молоком с добавлением белка для до 31 грамма белка на гранде. Наслаждайтесь горячими или холодными вариантами без сахара.</p>
+        <img class="displayed1" src="karam.jpg">
+    </div>
+</main>
+<main>
+    <div class="background2">
+        <h2>Привет, фисташка</h2>
+        <p style="line-height:2;">Любимый вкус возвращается с вкусным новым фисташко-кортадо, фисташковым кремом холодным заваром и любимым фисташковым латте. Солёно-сладкий комфорт в любое время суток.</p>
+        <img class="displayed2" src="coffe.jpg">
+    </div>
+</main>
+<main>
+    <div class="background1">
+        <h2>Умные закуски с Кардашьян</h2>
+        <p style="line-height:2;">Подживите свой день и закажите секретный протеиновый напиток Хлои, только в приложении. Сочетайте его с пакетом попкорна Khloud, который уже доступен в Starbucks.</p>
+        <img class="displayed3" src="woman.webp">
+    </div>
+</main>
+<main>
+    <div class="background2">
+        <h2>Но сначала — бесплатный кофе</h2>
+        <p style="line-height:2;">Бесплатный ручной напиток при покупке полностью доступен вам в первую неделю членства в Starbucks Rewards.*®</p>
+        <img class="displayed4" src="cup.webp">
+    </div>
+</main>
+<script src="app.js"></script>
+
+<!-- ========== promo.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Scroogebucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Акции Starbucks®</p>
+    </div>
+</main>
+<h2 class="promstart" style="line-height:1.6;">Сегодня отличный день<br>для<br>бесплатного кофе</h2>
+<main>
+    <div class="background01">
+        <h2>ВТОРОЙ НАПИТОК В ПОДАРОК!</h2>
+        <p>Дорогие гости!</p>
+        <p>У нас отличная новость! Теперь вы можете получить второй напиток абсолютно бесплатно!</p>
+        <p>Просто выберите два напитка из акционного ассортимента — за второй мы с радостью поставим нулевую цену.</p>
+        <h4>Условия акции:</h4>
+        <p>Акция действует на напитки, помеченные специальным стикером.</p>
+        <p>Предложение ограничено по времени.</p>
+        <p>Акция не суммируется с другими скидками и предложениями.</p>
+        <p class="darite">Дарите вкус себе и другу! Ждем в гости!</p>
+    </div>
+</main>
+<main>
+    <div class="background02">
+        <img class="promocof1" src="promcoffe1.png">
+    </div>
+</main>
+<main>
+    <div class="background045">
+        <div class="background046">
+            <h2 style="color: rgb(134, 87, 16);">ДАРИМ ВКУСНУЮ ВЫГОДУ!</h2>
+            <p>Друзья, стало ещё выгоднее собирать ваш любимый обед у нас! Теперь, формируя заказ от 500 рублей, вы получаете любое пирожное из витрины в подарок*.</p>
+            <p>Хочется большего? Тогда вот ещё одно спецпредложение: Оформите заказ от 800 рублей и активируйте скидку 15% на всю вашу покупку.</p>
+            <h4 style="color: rgb(134, 87, 16);">Почему это здорово?</h4>
+            <ul type="disc">
+                <li>Вы пробуете новое (пирожное в подарок — отличный повод).</li>
+                <li>Вы экономите на большом заказе (15% — это ощутимо).</li>
+                <li>Вы получаете больше удовольствия за те же деньги!</li>
+            </ul>
+            <h4 style="color: rgb(134, 87, 16);">Как получить подарок или скидку?</h4>
+            <p>Просто сообщите кассиру, что хотите участвовать в акции, когда ваш заказ достигнет нужной суммы. Или покажите этот пост.</p>
+            <p>Ждём вас за выгодными покупками!</p>
+        </div>
+        <div class="background047">
+            <img class="promocof1" src="podarok.png">
+        </div>
+    </div>
+</main>
+<h2 class="Q">Вопросы?</h2>
+<p class="q">Мы хотим помочь чем сможем. Вы можете обратиться к своему бариста в любое время, или мы уже ответили на самые часто задаваемые вопросы.</p>
+<main>
+    <div class="background048">
+        <p>В магазинах-участниках. Действуют ограничения.</p>
+        <p>1Исключает налоги и чаевые. В магазинах-участниках. Действуют некоторые ограничения. Рейсы, приобретённые ближе к вылету, не могут получать двойные звёзды. Звёзды и мили нельзя зарабатывать за покупки алкоголя, карт Starbucks и пополнения карт Starbucks. Для подробностей посетите.</p>
+        <p>2Для участия в предложении необходимо связывать аккаунты программ лояльности. Участники с привязанными аккаунтами получают: (a) двойные бонусные звезды Starbucks за квалифицированные транзакции Starbucks во время допустимого проживания в участвующих отелях Marriott Bonvoy, исключая проживание в Homes & Villas by Marriott Bonvoy и The Ritz-Carlton Yacht Collection, и (b) зарабатывают 100 баллов Marriott Bonvoy при завершении 3 квалифицированных транзакций Starbucks во время недели Marriott Bonvoy. Квалифицированные транзакции Starbucks должны совершаться в американских магазинах Starbucks и исключать покупки алкогольных напитков, электронных подарков по карте Starbucks и физических подарков Starbucks. Чтобы получить Double Stars, соответствующее проживание должно соответствовать требованиям для проживания в участующем отеле Marriott Bonvoy® по условиям предложения. Действуют другие ограничения и исключения. Полные условия предложения смотрите на сайте Starbucks.com/MarriottBonvoy. Marriott Bonvoy® и связанные с ней бренды и отели являются зарегистрированными товарными знаками и/или сервисными знаками Marriott International, Inc. и её аффилированных компаний. Используется по лицензии Marriott International, Inc ↩.</p>
+        <h4>Получение звёзд</h4>
+        <p>Звёзды нельзя зарабатывать за покупки алкоголя, карт Starbucks или пополнения карт Starbucks.</p>
+        <p>Зарабатывайте 1 звезду за каждый потраченный $1 при сканировании штрих-кода участника в приложении, затем платите наличными, кредитными/дебетовыми картами или мобильными кошельками в участвующих магазинах. Вы также можете заработать 1 звезду за каждый потраченный $1, если связаете способ оплаты и оплатите напрямую через приложение.</p>
+        <p>Зарабатывайте 2 звезды за каждый потраченный $1, когда вы загружаете средства и оплачиваете цифровой картой Starbucks в приложении. Вы также можете заработать 2 звезды за каждый потраченный $1, если оплачиваете лично в участующем магазине зарегистрированной физической картой Starbucks или сканируете штрихкод участника в приложении, а затем используете любую физическую карту Starbucks (независимо от того, зарегистрирована ли она) для завершения покупки.</p>
+        <h4>Преимущества</h4>
+        <p>Бесплатные пополнения доступны только во время одного и того же визита в магазин. Чтобы претендовать на награду за день рождения, вы должны совершить хотя бы одну транзакцию с получением звёзд.</p>
+        <hr>
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podval">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
+<!-- ========== proteincup.html ========== -->
+<header class="header">
+    <a href="#" class="logo">Starbucks Coffee Company</a>
+    <div class="toggleBtn"></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="promo.html">АКЦИИ</a></li>
+            <li>
+                <a href="menu.html">МЕНЮ<i class="fas fa-cared-down"></i></a>
+                <ul>
+                    <li><a href="food.html">Питание</a></li>
+                    <li><a href="Coffeehouse.html">Кофе дома</a></li>
+                    <li>
+                        <a href="menu.html">Напитки <i class="fas fa-cared-down"></i></a>
+                        <ul>
+                            <li><a href="hotcoffee.html">Горячий кофе</a></li>
+                            <li><a href="ColdCoffee.html">Холодный кофе</a></li>
+                            <li><a href="proteincup.html">Протеиновые напитки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="giftcards.html">ПОДАРОЧНЫЕ КАРТЫ</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="background">
+        <p style="color: rgb(255, 255, 255);">Меню/Protein Beverages Starbucks®</p>
+    </div>
+</main>
+<h2 class="background10text">Латте с высоким содержанием белка</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="proteincup.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="IcedMatchaTeaLattewProtein1.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="IcedMatchaTeaLattewProtein2.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="IcedMatchaTeaLattewProtein3.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Без добавленного сахара</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="IcedMatchaTeaLattewProtein1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="IcedMatchaTeaLattewProtein3.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="proteincup.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Iced Protein Lattes</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="IcedCoffee.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="IcedMatchaTeaLattewProtein1.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="SBX20250821_ProteinMatchaTeaLatte.jfif" style="border-radius: 50%;">
+        <img class="menucup4" src="proteincup.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<h2 class="background10text">Iced Shaken Espresso</h2>
+<main>
+    <div class="background10">
+        <img class="menucup1" src="IcedShakenEspresso1.jfif" style="border-radius: 50%;">
+        <img class="menucup2" src="IcedShakenEspresso2.jfif" style="border-radius: 50%;">
+        <img class="menucup3" src="IcedShakenEspresso3.jfif" style="border-radius: 50%;">
+    </div>
+</main>
+<script src="app.js"></script>
+<footer class="podvalmenu">
+    <main>
+        <nuv>
+            <ul class="footnuv1">
+                <li><h3>Поддержка</h3></li>
+                <li><a style="text-decoration: underline;">Чат участников</a></li>
+                <li><a style="text-decoration: underline;">Администратор мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Поддержка платформы Starbucks</a></li>
+            </ul>
+            <ul class="footnuv2">
+                <li><h3>Контакты</h3></li>
+                <li><a style="text-decoration: underline;">+7 (xxx) xxx-xx-xx</a></li>
+                <li><a style="text-decoration: underline;">info@Starbucks.org</a></li>
+            </ul>
+            <ul class="footnuv3">
+                <li><h3>Документы</h3></li>
+                <li><a style="text-decoration: underline;">Правила мероприятия</a></li>
+                <li><a style="text-decoration: underline;">Условия использования платформы</a></li>
+                <li><a style="text-decoration: underline;">Политика конфиденциальности</a></li>
+            </ul>
+        </nuv>
+        <p></p><hr><p></p>
+        © 2026 Scroogebucks Coffee Company. Все права не защищены.
+    </main>
+</footer>
+
 </body>
 </html>
